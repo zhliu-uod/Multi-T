@@ -82,10 +82,14 @@ def _robust_thres(data):
     else: 
         hard_thres = np.mean(score)+3*np.std(score) 
     
-    for iter_ in range(20):
-        normal_score = score[score<=thres]
-        normal_num, soft_thres = _poly_fit(normal_score)
-        thres = _three_sigma_k(score, normal_num, 3)
+    for _ in range(20):
+        normal_score = score[score <= thres]
+        normal_num, soft_thres = self._poly_fit(normal_score)
+        
+        thres_last = thres
+        thres = self._three_sigma_k(score, normal_num, 3)
+        if thres == thres_last:
+            break
         
     if spearmanr_simi >= 0.3:
         hard_thres = thres
