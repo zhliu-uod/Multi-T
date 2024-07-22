@@ -3,7 +3,7 @@ from utils import dist, normIt
 from scipy import stats 
 from numpy import polyfit, poly1d
 
-## Shell-Renorm
+## Shell-renormalization (TPAMI-21)
 def estShell(data):
     m_ = np.mean(data, axis=0, keepdims=True)
     d = np.linalg.norm(data - m_, axis=1)
@@ -19,8 +19,7 @@ def projectMean(data, m, var):
     d = np.linalg.norm(data - m, axis=1)
     err = d-var
     return err
-
-## Shell-renormalization (TPAMI-21)
+    
 def robustMean(featTrain, globalMean, thres=2, numIter=10):
     
     feat = normIt(featTrain, globalMean)
