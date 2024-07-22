@@ -20,6 +20,7 @@ def projectMean(data, m, var):
     err = d-var
     return err
 
+## Shell-renormalization (TPAMI-21)
 def robustMean(featTrain, globalMean, thres=2, numIter=10):
     
     feat = normIt(featTrain, globalMean)
@@ -63,7 +64,7 @@ def _robust_thres(data):
     data_norm = normIt(data) # ergodic-set normalization
     score = dist(data_norm) # euclidean distance (l2 norm)
     
-    # Shell Renormalization
+    # Shell Renormalization (for better comparision, we adopt iterative Shell-Renomalization)
     globalMean = np.mean(data_norm, axis = 0)
     score_re = robustMean(data_norm, globalMean, thres=1, numIter=10)
     
